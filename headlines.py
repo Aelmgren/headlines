@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import feedparser
+import os
 
 from flask import Flask
 from flask import render_template
 
-app = Flask(__name__)
+tmpl_dir = os.path.joihn(os.path.dirname(os.path.abspath(__file__)), 'templates')
+app = Flask(__name__, template_folder=tmpl_dir)
 
 RSS_FEEDS = { 'cc': 'http://blog.cheapcaribbean.com/rss',
               'applevac': 'http://www.applevacationsblog.com/feed/',
