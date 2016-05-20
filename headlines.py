@@ -6,6 +6,7 @@ import os
 
 from flask import Flask
 from flask import render_template
+from flask import request
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -21,6 +22,11 @@ CC_FEED = "http://blog.cheapcaribbean.com/rss"
 @app.route("/<publication>")
 
 def get_news(publication="cc"):
+    query = request.args.get("publication")
+    if not query or query.lower() not in RSS_FEEDS:
+        pubication = "bbc"
+    else:
+        publication = query.lower()
     feed = feedparser.parse(RSS_FEEDS[publication])
     # for article in feed['entries']:
 
